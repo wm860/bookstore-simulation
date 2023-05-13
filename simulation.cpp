@@ -44,7 +44,6 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
     // stworzenie listy obieektów typu sprzedawca
     // stworzenie listy obiektów typu klient
 
-    // stworzenie klasy ksiazka i jej podtypow
     // wybor ksiazek, które bedzie posiadala ksiegarnia
     // stworzenie number_of_books konstruktorow ksiazek i zapisanie tego w liscie
 

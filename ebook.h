@@ -1,5 +1,5 @@
-#ifndef MAGAZINE_H
-#define MAGAZINE_H
+#ifndef EBOOK_H
+#define EBOOK_H
 
 #include "book.h"
 

@@ -11,4 +11,5 @@ private:
 public:
   File_operation(std::string filename);
   std::vector<std::string> open_file(std::string filename);
+  std::vector<std::string> open_book_file(std::string filename);
 };
