@@ -28,11 +28,32 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
 
     int time = 0;
     int time_max = std::stoi(parameters[0]);
+    int number_of_sellers = std::stoi(parameters[1]);
+    int number_of_clients = std::stoi(parameters[2]);
+    int number_of_books = std::stoi(parameters[3]);
+
+    std::cout << "Given parameters:\n";
+    std::cout << "Time of simulation\t\t" << time_max << std::endl;
+    std::cout << "Number of sellers\t\t" << number_of_sellers << std::endl;
+    std::cout << "Initial number of clients\t" << number_of_clients << std::endl;
+    std::cout << "Initial number of books\t\t" << number_of_books << std::endl
+              << std::endl
+              << "Start simulation\n";
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+
+    // stworzenie listy obieektów typu sprzedawca
+    // stworzenie listy obiektów typu klient
+
+    // stworzenie klasy ksiazka i jej podtypow
+    // wybor ksiazek, które bedzie posiadala ksiegarnia
+    // stworzenie number_of_books konstruktorow ksiazek i zapisanie tego w liscie
+
     while (time < time_max) // simulation loop
     {
 
-        std::cout << "TIME[s]: " << time << std::endl; // print in terminal simulation results
-        file << time << std::endl;                     // save to file simulation result
+        std::cout << "TIME[s]: " << time << ",  Action : "
+                  << "Client number x _activity_ book titled y" << std::endl; // print in terminal simulation results
+        file << time << std::endl;                                            // save to file simulation result
         std::this_thread::sleep_for(std::chrono::seconds(1));
         time++;
     }
