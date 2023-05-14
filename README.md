@@ -15,7 +15,8 @@ Do wczytywania danych z pliku utworzono odrębną klasę o nazwie file_operation
 
 
 Dodatkowe info:
-W .vscode w launchu w args masz podane domyślne argumenty wejściowe.
+- W .vscode w launchu w args masz podane domyślne argumenty wejściowe.
+- niech losowość może polega na samym ustaleniu czynnosci danego klienta, a nie na wyborze liczby klientow; liczba klientow ustalana jako argument startowy programu przez uzytownika
 
 To do:
  - Na końcu projektu nazwy ścieżki plików dodać jako argumenty wczytywania programu

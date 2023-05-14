@@ -23,11 +23,11 @@ void Magazine::set_year(std::string m)
 
 void Magazine::print() const
 {
-    std::cout << "ISBN identificator: " << isbn << "Title: " << title << ", Author: " << author << "Genre :" << genre << ", Base price: " << base_price << ", State: " << state << ", Month: " << month << ",  Year: " << year << std::endl;
+    std::cout << "ISBN identificator: " << isbn << ", Title: " << title << ", Author: " << author << "Genre :" << genre << ", Base price: " << base_price << ", State: " << state << ", Month: " << month << ",  Year: " << year << std::endl;
 }
 std::ostream &operator<<(std::ostream &os, const Magazine &mag)
 {
-    os << "ISBN identificator: " << mag.isbn << "Title: " << mag.title << ", Author: " << mag.author << "Genre :" << mag.genre << ", Base price: " << mag.base_price << ", State: " << mag.state << ", Month: " << mag.month << ",  Year: " << mag.year << std::endl;
+    os << "ISBN identificator: " << mag.isbn << ", Title: " << mag.title << ", Author: " << mag.author << "Genre :" << mag.genre << ", Base price: " << mag.base_price << ", State: " << mag.state << ", Month: " << mag.month << ",  Year: " << mag.year << std::endl;
     return os;
 }
 

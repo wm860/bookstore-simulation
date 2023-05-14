@@ -14,7 +14,7 @@ void Ebook::set_format(std::string m)
 
 void Ebook::print() const
 {
-    std::cout << "ISBN identificator: " << isbn << "Title: " << title << ", Author: " << author << "Genre :" << genre << ", Base price: " << base_price << ", State: " << state << ",  Format: " << format << std::endl;
+    std::cout << "ISBN identificator: " << isbn << ", Title: " << title << ", Author: " << author << "Genre :" << genre << ", Base price: " << base_price << ", State: " << state << ",  Format: " << format << std::endl;
 }
 std::ostream &operator<<(std::ostream &os, const Ebook &mag)
 {

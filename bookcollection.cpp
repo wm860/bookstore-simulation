@@ -33,16 +33,6 @@ void Bookcollection::add_book(Book b)
     else
         std::cout << "You wanted add book, which is already on the shell - type book\n";
 }
-/*
-void Bookcollection::delete_book(Book b)
-{
-    std::unique_ptr<Book> deleted_book;
-    deleted_book = std::make_unique<Book>(b.get_author(), b.get_title(), b.get_isbn(), b.get_publication_year(), b.get_base_price(), b.get_rack(), b.get_shell());
-    std::cout << "size before delete " << books.size();
-    books.remove(deleted_book);
-    std::cout << "\nsize after delete " << books.size() << std::endl;
-}
-*/
 void Bookcollection::delete_book2(Book &b)
 {
     std::list<std::unique_ptr<Book>>::iterator it = books.begin();

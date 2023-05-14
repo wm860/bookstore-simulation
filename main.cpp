@@ -7,15 +7,16 @@
 #include <vector>
 #include "file_operation.h"
 #include "simulation.h"
+#include "magazine.h"
 
 int main(int argc, char *argv[])
 {
-    std::cout << "hello\n";
+    std::cout << "WELCOME TO OUR PROGRAM\n";
 
-    if (argc != 5) // arguments when program is called in terminal
+    if (argc != 4) // arguments when program is called in terminal
     {
         std::cerr
-            << "Incorrect number of command line arguments - expected 5, got "
+            << "Incorrect number of command line arguments - expected 4, got "
             << argc << std::endl;
         return 1;
     }
@@ -42,38 +43,10 @@ int main(int argc, char *argv[])
     parameters.push_back(number_of_books);
     stream.clear();
 
-    Simulation S;
-    S.do_simulation(parameters);
-
-    // small change
-    /*
-        unsigned short int time_max = 10;
-
-        std::stringstream stream;
-        stream << argv[1];
-        stream >> time_max;
-        stream.clear();
-        std::cout << argv[1] << std::endl;
-
-        File_operation file_in("simulation_start.txt"); // read from file_in
-        std::vector<std::string> start_table = file_in.open_file("simulation_start.txt");
-        time_max = std::stoi(start_table[0]);
-        // std::cout << "time max \t" << time_max << std::endl;
-
-        std::ofstream file; // write to file
-        file.open("simulation_results.txt", std::ios::out);
-        file << "Simulation results: " << std::endl;
-
-        int time = 0;
-        while (time < time_max) // simulation loop
-        {
-
-            std::cout << "TIME[s]: " << time << std::endl; // print in terminal simulation results
-            file << time << std::endl;                     // save to file simulation result
-            std::this_thread::sleep_for(std::chrono::seconds(1));
-            time++;
-        }
-        file.close();
-    */
+    Magazine mag("autor", "magazine", 5, "news", 35.1, "available", 10, "2020");
+    mag.print();
+    std::cout << mag;
+    //  Simulation S;
+    //  S.do_simulation(parameters);
     return 0;
 }

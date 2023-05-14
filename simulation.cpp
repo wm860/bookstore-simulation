@@ -1,4 +1,8 @@
 #include "simulation.h"
+#include "book.h"
+#include "ebook.h"
+#include "magazine.h"
+#include "bookcollection.h"
 #include "file_operation.h"
 #include <iostream>
 #include <string>
@@ -30,7 +34,7 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
     int time_max = std::stoi(parameters[0]);
     int number_of_sellers = std::stoi(parameters[1]);
     int number_of_clients = std::stoi(parameters[2]);
-    int number_of_books = std::stoi(parameters[3]);
+    int number_of_books = 27; // std::stoi(parameters[3]);
 
     std::cout << "Given parameters:\n";
     std::cout << "Time of simulation\t\t" << time_max << std::endl;
@@ -41,11 +45,30 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
               << "Start simulation\n";
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
-    // stworzenie listy obieektów typu sprzedawca
+    // stworzenie listy obiektów typu sprzedawca
     // stworzenie listy obiektów typu klient
 
-    // wybor ksiazek, które bedzie posiadala ksiegarnia
-    // stworzenie number_of_books konstruktorow ksiazek i zapisanie tego w liscie
+    Book b1("Joanne K. Rowling", "Harry Potter and the Philosopher's Stone", 1, "fiction", 151.96, "available");
+    Book b2("Joanne K. Rowling", "Harry Potter and the Chamber of Secrets", 2, "fiction", 151.96, "available");
+    Book b3("Joanne K. Rowling", "Harry Potter and the Prisoner of Azkaban", 3, "fiction", 151.96, "available");
+    Book b4("Joanne K. Rowling", "Harry Potter and the Goblet of Fire", 4, "fiction", 151.96, "available");
+    std::cout << "\t To będzie wprowadzony magazyn\n";
+    Magazine m1("autor", "magazine", 5, "news", 35.1, "available", 10, "2020");
+    //  Ebook e1("Joanne K. Rowling", "Harry Potter and the Philosopher's Stone", 5, "fiction", 21.99, "available", "pdf");
+    //
+
+    m1.print();
+
+    Bookcollection bc;
+    bc.add_book(b1);
+    bc.add_book(b2);
+    bc.add_book(b3);
+    bc.add_book(b4);
+    // bc.add_ebook(e1);
+    // bc.add_magazine(m1);
+
+    std::cout << bc.size() << std::endl;
+    bc.print_list();
 
     while (time < time_max) // simulation loop
     {
