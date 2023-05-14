@@ -43,10 +43,7 @@ int main(int argc, char *argv[])
     parameters.push_back(number_of_books);
     stream.clear();
 
-    Magazine mag("autor", "magazine", 5, "news", 35.1, "available", 10, "2020");
-    mag.print();
-    std::cout << mag;
-    //  Simulation S;
-    //  S.do_simulation(parameters);
+    Simulation S;
+    S.do_simulation(parameters);
     return 0;
 }

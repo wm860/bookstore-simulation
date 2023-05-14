@@ -21,6 +21,8 @@ public:
     void add_ebook(std::string new_author, std::string new_title, uint new_isbn, std::string new_genre, double new_price, std::string new_state, std::string format);
     void add_ebook(Ebook e);
 
+    void make_list_from_file(std::vector<std::vector<std::string>> M);
+
     double calculate_total_price() const noexcept;
     void print_list() const noexcept;
     Book find_book_by_isbn(uint isbn) const;

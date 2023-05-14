@@ -82,6 +82,30 @@ void Bookcollection::add_ebook(Ebook b)
     else
         std::cout << "You wanted add book, which is already on the shell - type bio\n";
 }
+
+void Bookcollection::make_list_from_file(std::vector<std::vector<std::string>> M)
+{
+    for (int i = 0; i < (int)M.size(); ++i)
+    {
+        if (std::stoi(M[i][0]) == 1) // add_book
+        {
+            Book b(M[i][1], M[i][2], std::stoi(M[i][3]), M[i][4], std::stod(M[i][5]), M[i][6]);
+            add_book(b);
+            // books.push_back(b);
+        }
+        if (std::stoi(M[i][0]) == 2) // add_magazine
+        {
+            Magazine mag(M[i][1], M[i][2], std::stoi(M[i][3]), M[i][4], std::stod(M[i][5]), M[i][6], std::stoi(M[i][7]), M[i][8]);
+            add_magazine(mag);
+        }
+        if (std::stoi(M[i][0]) == 3) // add_ebook
+        {
+            Ebook e(M[i][1], M[i][2], std::stoi(M[i][3]), M[i][4], std::stod(M[i][5]), M[i][6], M[i][7]);
+            add_ebook(e);
+        }
+    }
+}
+
 double Bookcollection::calculate_total_price() const noexcept
 {
     double total_price = 0.0;

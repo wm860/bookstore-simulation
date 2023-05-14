@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/${workspaceFolderBasename}",
             "args": [
-                "5",
+                "3",
                 "1",
                 "2"
             ],

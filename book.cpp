@@ -13,11 +13,11 @@ Book::Book(std::string new_author, std::string new_title, uint new_isbn, std::st
 
 void Book::print() const
 {
-    std::cout << "ISBN identificator: " << isbn << "Title: " << title << ", Author: " << author << "Genre :" << genre << ", Base price: " << base_price << ", State: " << state << std::endl;
+    std::cout << "ISBN identificator: " << isbn << ", Title: " << title << ", Author: " << author << ", Genre :" << genre << ", Base price: " << base_price << ", State: " << state << std::endl;
 }
 std::ostream &operator<<(std::ostream &os, const Book &boo)
 {
-    os << "ISBN identificator: " << boo.isbn << "Title: " << boo.title << ", Author: " << boo.author << "Genre :" << boo.genre << ", Base price: " << boo.base_price << ", State: " << boo.state << std::endl;
+    os << "ISBN identificator: " << boo.isbn << ", Title: " << boo.title << ", Author: " << boo.author << ", Genre :" << boo.genre << ", Base price: " << boo.base_price << ", State: " << boo.state << std::endl;
     return os;
 }
 
