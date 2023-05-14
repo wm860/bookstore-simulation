@@ -55,16 +55,24 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
     Bookcollection bc;
     bc.make_list_from_file(M);
     bc.print_list();
-    std::cout << "\nSIMULATION STARTED\n";
 
+    std::srand(std::time(nullptr));
+    int randomIndex;
+
+    std::cout << "\nSIMULATION STARTED\n";
     while (time < time_max) // simulation loop
     {
-
+        randomIndex = std::rand() % number_of_books;
+        // Book b = bc.find_book_by_isbn(randomIndex);
+        bc.change_availability(randomIndex);
         std::cout << "TIME[s]: " << time << ",  Action : "
-                  << "Client number x _activity_ book titled y" << std::endl; // print in terminal simulation results
-        file << time << std::endl;                                            // save to file simulation result
+                  << "Client number x _activity_ book titled: " << bc.print_title(randomIndex) << std::endl; // print in terminal simulation results
+        file << "TIME[s]: " << time << ",  Action : "
+             << "Client number x _activity_ book titled: " << bc.print_title(randomIndex) << std::endl; // save to file simulation result
         std::this_thread::sleep_for(std::chrono::seconds(1));
         time++;
     }
+    std::cout << "End of simulation, book state:\n";
+    bc.print_list();
     file.close();
 }

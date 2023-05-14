@@ -1,7 +1,7 @@
 #include "ebook.h"
 #include <iostream>
 
-Ebook::Ebook(std::string author, std::string title, uint isbn, std::string genre, double price, std::string state, std::string format) : Book(author, title, isbn, genre, base_price, state), format(format) {}
+Ebook::Ebook(std::string author, std::string title, uint isbn, std::string genre, double price, std::string state, std::string format) : Book(author, title, isbn, genre, price, state), format(format) {}
 
 std::string Ebook::get_format()
 {
