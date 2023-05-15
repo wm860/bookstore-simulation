@@ -105,14 +105,28 @@ void Bookcollection::make_list_from_file(std::vector<std::vector<std::string>> M
         }
     }
 }
-void Bookcollection::change_availability(uint isbn)
+void Bookcollection::change_availability(uint isbn, uint action)
 {
     for (auto it = books.begin(); it != books.end(); ++it)
     {
         if ((*it)->get_isbn() == isbn && (*it)->get_state() == "available")
         {
             // std::cout << "tytul wylosowanej ksiazki: " << (*it)->get_title() << "\n";
-            (*it)->set_state("unavailable");
+            if (action == 0)
+            {
+                (*it)->set_state("asked for");
+            }
+            if (action == 1)
+            {
+                (*it)->set_state("bought");
+            }
+        }
+        if ((*it)->get_isbn() == isbn && (*it)->get_state() == "asked for")
+        {
+            if (action == 1)
+            {
+                (*it)->set_state("bought");
+            }
         }
     }
 }

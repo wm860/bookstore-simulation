@@ -34,6 +34,8 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
     int number_of_sellers = std::stoi(parameters[1]);
     int number_of_clients = std::stoi(parameters[2]);
 
+    int number_of_actions = 2; // tutaj do przemyślenia(zmienienia) 1-pytanie, 2-zakup
+
     std::cout << "Given parameters:\n";
     std::cout << "Time of simulation\t\t" << time_max << std::endl;
     std::cout << "Number of sellers\t\t" << number_of_sellers << std::endl;
@@ -57,22 +59,22 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
     bc.print_list();
 
     std::srand(std::time(nullptr));
-    int randomIndex;
+    int randomIndex, randomAction;
 
     std::cout << "\nSIMULATION STARTED\n";
     while (time < time_max) // simulation loop
     {
-        randomIndex = std::rand() % number_of_books;
-        // Book b = bc.find_book_by_isbn(randomIndex);
-        bc.change_availability(randomIndex);
+        randomIndex = std::rand() % number_of_books;    // choosing book
+        randomAction = std::rand() % number_of_actions; // chosing action - asking or buying book
+        bc.change_availability(randomIndex, randomAction);
         std::cout << "TIME[s]: " << time << ",  Action : "
-                  << "Client number x _activity_ book titled: " << bc.print_title(randomIndex) << std::endl; // print in terminal simulation results
+                  << "Client <index of client> " << randomAction << " book titled: " << bc.print_title(randomIndex) << std::endl; // print in terminal simulation results
         file << "TIME[s]: " << time << ",  Action : "
-             << "Client number x _activity_ book titled: " << bc.print_title(randomIndex) << std::endl; // save to file simulation result
+             << "Client <index of client> " << randomAction << " book titled: " << bc.print_title(randomIndex) << std::endl; // save to file simulation result
         std::this_thread::sleep_for(std::chrono::seconds(1));
         time++;
     }
-    std::cout << "End of simulation, book state:\n";
+    std::cout << "\nEnd of simulation, books status:\n";
     bc.print_list();
     file.close();
 }

@@ -22,7 +22,7 @@ public:
     void add_ebook(Ebook e);
 
     void make_list_from_file(std::vector<std::vector<std::string>> M);
-    void change_availability(uint isbn);
+    void change_availability(uint isbn, uint action);
     std::string print_title(uint isbn);
 
     double calculate_total_price() const noexcept;
