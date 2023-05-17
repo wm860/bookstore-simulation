@@ -8,9 +8,10 @@
 class SellersList
 {
     private:
-        std::list<std::unique_ptr<Seller>> sellers;
+        std::list<std::shared_ptr<Seller>> sellers;
     public:
-        void add_seller(unsigned int id, std::string name, std::string surname, Accessibility);
+        void add_seller(Seller seller);
+        std::list<std::shared_ptr<Seller>> get_sellers();
         Seller find_seller_by_id(unsigned int id) const;
 };
 
