@@ -30,6 +30,7 @@ class Seller
         void set_name(std::string new_name) noexcept;
         void set_surname(std::string new_surname) noexcept;
 
+        bool operator==(const Seller& second_seller) const;
         void answer_question();
         void bill_presentation();
 };
