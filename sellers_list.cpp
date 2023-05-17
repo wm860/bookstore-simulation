@@ -2,16 +2,16 @@
 #include "seller_not_found_exception.h"
 #include "already_existing_seller_exception.h"
 
-void SellersList::add_seller(unsigned int id, std::string name, std::string surname, Accessibility accessibility)
+void SellersList::add_seller(Seller seller)
 {
     for(const auto& seller_ptr : sellers)
     {
-        if(seller_ptr -> get_id() == id)
+        if(seller_ptr -> get_id() == seller.get_id())
         {
-            throw AlreadyExistingSellerException(id);
+            throw AlreadyExistingSellerException(seller.get_id());
         }
     }
-    std::unique_ptr<Seller> added_seller = std::make_unique<Seller>(id, name, surname, accessibility);
+    std::shared_ptr<Seller> added_seller = std::make_shared<Seller>(seller);
     sellers.push_back(std::move(added_seller));
 }
 
@@ -25,4 +25,9 @@ Seller SellersList::find_seller_by_id(unsigned int id) const
         }
     }
     throw SellerNotFoundException(id);
+}
+
+std::list<std::shared_ptr<Seller>> SellersList::get_sellers()
+{
+    return sellers;
 }
