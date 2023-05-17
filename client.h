@@ -37,12 +37,13 @@ class Client
         //setters
         void set_name(std::string new_name) noexcept;
         void set_surname(std::string new_surname) noexcept;
-        void set_state(State new_state);
-        void set_purpose(Purpose new_purpose);
+        void set_state(State new_state) noexcept;
+        void set_purpose(Purpose new_purpose) noexcept;
 
-        void ask();
-        void buy();
-        void order();
+        bool operator==(const Client& second_client) const;
+        bool ask(unsigned int book_id) const;
+        void buy(unsigned int book_id);
+        void order(unsigned int book_id);
 };
 
 #endif
