@@ -9,6 +9,8 @@
 #include "simulation.h"
 #include "magazine.h"
 
+#include "clients_list.h"
+
 int main(int argc, char *argv[])
 {
     std::cout << "WELCOME TO OUR PROGRAM\n";
@@ -42,6 +44,24 @@ int main(int argc, char *argv[])
     stream >> number_of_books;
     parameters.push_back(number_of_books);
     stream.clear();
+
+    // ClientsList cl;
+    // cl.make_list(5);
+    // cl.print_list();
+    // std::cout << "\n";
+    // unsigned int client_id = cl.return_first_client();
+    // Client a = cl.find_client_by_id(client_id);
+    // std::cout << "\n"
+    //           << enumToString(a.get_state());
+    // a.set_actual_state();
+    // std::cout << "\n"
+    //           << enumToString(a.get_state());
+    // a.set_actual_state();
+    // std::cout << "\n"
+    //           << enumToString(a.get_state());
+    // a.set_actual_state();
+    // std::cout << "\n"
+    //           << enumToString(a.get_state());
 
     Simulation S;
     S.do_simulation(parameters);

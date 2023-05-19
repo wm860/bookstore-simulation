@@ -16,15 +16,15 @@ std::string enumToString(Purpose purpose)
     {
         return it->second;
     }
-
     return "Unknown";
 }
 std::string enumToString(State state)
 {
     static const std::map<State, std::string> enumStrings{
-        {State::serviced, "serviced"},
         {State::waiting, "waiting"},
-    };
+        {State::servicing1, "servicing1"},
+        {State::servicing2, "servicing2"},
+        {State::serviced, "serviced"}};
     auto it = enumStrings.find(state);
     if (it != enumStrings.end())
     {
@@ -83,7 +83,7 @@ void ClientsList::print_list() noexcept
     std::cout << "\nClients list:\n";
     for (const auto &client_ptr : clients)
     {
-        std::cout << "Client ID: " << client_ptr->get_id() << std::endl;
+        std::cout << " Client ID: " << client_ptr->get_id() << std::endl;
         std::cout << "Name:" << client_ptr->get_name() << std::endl;
         std::cout << "Surname:" << client_ptr->get_surname() << std::endl;
         std::cout << "State:" << enumToString(client_ptr->get_state()) << std::endl;
@@ -92,4 +92,27 @@ void ClientsList::print_list() noexcept
                   << std::endl
                   << std::endl;
     }
+}
+unsigned int ClientsList::return_first_client() noexcept
+{
+    for (const auto &client_ptr : clients)
+    {
+        if (enumToString(client_ptr->get_state()) != "serviced")
+        {
+            return client_ptr->get_id();
+        }
+    }
+    return 33;
+}
+
+Client ClientsList::find_client_by_id(unsigned int id)
+{
+    for (const auto &client_ptr : clients)
+    {
+        if (client_ptr->get_id() == id)
+        {
+            return *client_ptr;
+        }
+    }
+    throw ClientNotFoundException(id);
 }

@@ -66,22 +66,41 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
     bc.print_list();
 
     std::srand(std::time(nullptr));
-    int randomIndex, randomAction;
+    int randomBook, randomAction;
+    // int state;
+    unsigned int client_id; // first client to service
 
     std::cout << "\nSIMULATION STARTED\n";
     while (time < time_max) // simulation loop
     {
-        randomIndex = std::rand() % number_of_books;    // choosing book
-        randomAction = std::rand() % number_of_actions; // chosing action - asking or buying book
-        bc.change_availability(randomIndex, randomAction);
-        std::cout << "TIME[s]: " << time << ",  Action : "
-                  << "Client <index of client> " << randomAction << " book titled: " << bc.print_title(randomIndex) << std::endl; // print in terminal simulation results
-        file << "TIME[s]: " << time << ",  Action : "
-             << "Client <index of client> " << randomAction << " book titled: " << bc.print_title(randomIndex) << std::endl; // save to file simulation result
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-        time++;
+        std::cout << "TIME[s]: " << time;
+        client_id = cl.return_first_client();
+
+        for (int i = 0; i < number_of_sellers; i++)
+        {
+            Client a = cl.find_client_by_id(client_id);
+            randomBook = std::rand() % number_of_books;     // choosing book
+            randomAction = std::rand() % number_of_actions; // chosing action - asking or buying book
+            a.set_purpose(Purpose(randomAction));
+            if (enumToString(a.get_purpose()) == "ask")
+            {
+                a.set_state(State(2));
+            }
+            else
+            {
+                a.set_actual_state();
+            }
+            bc.change_availability(randomBook, randomAction);
+            std::cout << " Client nr " << client_id << " " << enumToString(a.get_purpose()) << " book titled: " << bc.print_title(randomBook) << std::endl; // print in terminal simulation results
+            file << "TIME[s]: " << time << ",  Action : "
+                 << " Client <index of client> " << randomAction << " book titled: " << bc.print_title(randomBook) << std::endl
+                 << "u sprzedawcy numer :"; // save to file simulation result
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+            client_id++;
+            time++;
+        }
     }
-    std::cout << "\nEnd of simulation, books status:\n";
-    bc.print_list();
+    // std::cout << "\nEnd of simulation, books status:\n";
+    // bc.print_list();
     file.close();
 }

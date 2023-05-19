@@ -4,8 +4,10 @@
 
 enum class State
 {
-    serviced,
-    waiting
+    waiting,
+    servicing1,
+    servicing2,
+    serviced
 };
 
 enum class Purpose
@@ -46,6 +48,8 @@ public:
     bool ask(unsigned int book_id) const;
     void buy(unsigned int book_id);
     void order(unsigned int book_id);
+
+    void set_actual_state() noexcept;
 };
 
 #endif

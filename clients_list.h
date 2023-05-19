@@ -15,6 +15,8 @@ public:
     Client find_client_by_id(unsigned int id) const;
     void make_list(int number_of_clients);
     void print_list() noexcept;
+    unsigned int return_first_client() noexcept;
+    Client find_client_by_id(unsigned int id);
 };
 
 #endif

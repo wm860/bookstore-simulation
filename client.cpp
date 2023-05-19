@@ -1,9 +1,8 @@
 #include "client.h"
+#include <iostream>
+Client::Client() {}
 
-Client::Client(){}
-
-Client::Client(unsigned int id, std::string name, std::string surname, Purpose purpose) :
-id(id), name(name), surname(surname), purpose(purpose)
+Client::Client(unsigned int id, std::string name, std::string surname, Purpose purpose) : id(id), name(name), surname(surname), purpose(purpose)
 {
     state = State::waiting;
 }
@@ -53,11 +52,21 @@ void Client::set_purpose(Purpose new_purpose) noexcept
     purpose = new_purpose;
 }
 
-bool Client::operator==(const Client& second_client) const
+bool Client::operator==(const Client &second_client) const
 {
-    if(id == second_client.get_id())
+    if (id == second_client.get_id())
     {
         return true;
     }
     return false;
+}
+void Client::set_actual_state() noexcept
+{
+    if (int(get_state()) < 4)
+    {
+        State state = get_state();
+        int new_state = int(state);
+        new_state++;
+        set_state(State(new_state));
+    }
 }
