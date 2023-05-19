@@ -149,3 +149,14 @@ void ClientsList::simulation_step(unsigned int id, std::string availability)
         }
     }
 }
+std::string ClientsList::activity(unsigned int id)
+{
+    for (const auto &client_ptr : clients)
+    {
+        if (client_ptr->get_id() == id)
+        {
+            return enumToString(client_ptr->get_purpose());
+        }
+    }
+    return "error in activity";
+}
