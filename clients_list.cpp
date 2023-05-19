@@ -71,11 +71,9 @@ void ClientsList::make_list(int n)
         unsigned int id = i + 1;
         std::string name = "Name" + std::to_string(id);
         std::string surname = "Surname" + std::to_string(id);
-        // int purp = std::rand() % 3;
         Purpose purpose = Purpose(std::rand() % 3);
         Client client(id, name, surname, purpose);
         add_client(client);
-        // clients.push_back(client);
     }
 }
 void ClientsList::print_list() noexcept
@@ -115,4 +113,39 @@ Client ClientsList::find_client_by_id(unsigned int id)
         }
     }
     throw ClientNotFoundException(id);
+}
+
+void ClientsList::set_actual_state_list(unsigned int id)
+{
+    for (const auto &client_ptr : clients)
+    {
+        if (enumToString(client_ptr->get_state()) != "serviced")
+        {
+            if (client_ptr->get_id() == id)
+            {
+                client_ptr->set_actual_state();
+            }
+        }
+    }
+}
+void ClientsList::simulation_step(unsigned int id, std::string availability)
+{
+    for (const auto &client_ptr : clients)
+    {
+        if (client_ptr->get_id() == id)
+        {
+            if (client_ptr->get_purpose() == Purpose::ask)
+            {
+                client_ptr->set_state(State(2));
+            }
+            else
+            {
+                client_ptr->set_actual_state();
+            }
+            if (availability == "unavailable")
+            {
+                client_ptr->set_state(State(3));
+            }
+        }
+    }
 }

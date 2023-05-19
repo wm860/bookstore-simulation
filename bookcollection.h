@@ -30,6 +30,9 @@ public:
     Book find_book_by_isbn(uint isbn) const;
     bool check_book_by_isbn(uint isbn);
     int size();
+
+    std::string get_state(uint isbn);
+    double calculate_book_price(uint isbn) const noexcept;
 };
 
 #endif

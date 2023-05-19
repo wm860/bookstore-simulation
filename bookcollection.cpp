@@ -184,3 +184,27 @@ int Bookcollection::size()
     }
     return count;
 }
+
+std::string Bookcollection::get_state(uint isbn)
+{
+    for (const auto &book_ptr : books)
+    {
+        if (book_ptr->get_isbn() == isbn)
+        {
+            return book_ptr->get_state();
+        }
+    }
+    return "error";
+}
+
+double Bookcollection::calculate_book_price(uint isbn) const noexcept
+{
+    for (const auto &book_ptr : books)
+    {
+        if (book_ptr->get_isbn() == isbn)
+        {
+            return book_ptr->get_base_price();
+        }
+    }
+    return 0.0;
+}
