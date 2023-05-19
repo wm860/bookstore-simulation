@@ -10,6 +10,6 @@
 2,Steve Denning,Forbes,10,style,16.3,available,5, 2023,
 2,Marek Król,Wprost,11,politics,6.8,available,4,2023,
 3,Stieg Larsson,The Girl with the Dragon Tattoo,12,fiction,69.9,available,pdf,
-3,Harper Lee, To Kill a Mockingbird,13,thriller,27.9,available,epub,
+3,Harper Lee,To Kill a Mockingbird,13,thriller,27.9,available,epub,
 3,J.R.R.Tolkien,The Lord of the Rings,14,fiction,49.9,available,mobi,
 3,Paula Hawkins,The Girl on the Train,15,novel,53.3,available,azw,

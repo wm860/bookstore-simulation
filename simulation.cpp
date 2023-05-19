@@ -4,6 +4,10 @@
 #include "magazine.h"
 #include "bookcollection.h"
 #include "file_operation.h"
+#include "clients_list.h"
+#include "client.h"
+// #include "seller.h"
+#include "sellers_list.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -33,8 +37,7 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
     int time_max = std::stoi(parameters[0]);
     int number_of_sellers = std::stoi(parameters[1]);
     int number_of_clients = std::stoi(parameters[2]);
-
-    int number_of_actions = 2; // tutaj do przemyślenia(zmienienia) 1-pytanie, 2-zakup
+    int number_of_actions = 3; // tutaj do przemyślenia(zmienienia) 1-pytanie, 2-zakup
 
     std::cout << "Given parameters:\n";
     std::cout << "Time of simulation\t\t" << time_max << std::endl;
@@ -44,6 +47,10 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
 
     // stworzenie listy obiektów typu sprzedawca
     // stworzenie listy obiektów typu klient
+    ClientsList cl;
+    cl.make_list(number_of_clients);
+    cl.print_list();
+    std::cout << "\n";
 
     std::string text = "books.txt";
     File_operation File_b(text);
@@ -54,7 +61,7 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
               << std::endl
               << "List of books:\n";
 
-    Bookcollection bc;
+    Bookcollection bc; // initialize book collection
     bc.make_list_from_file(M);
     bc.print_list();
 

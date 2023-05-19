@@ -12,7 +12,7 @@
             "args": [
                 "10",
                 "1",
-                "2"
+                "5"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
