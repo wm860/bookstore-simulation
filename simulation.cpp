@@ -46,11 +46,13 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
     // stworzenie listy obiektów typu sprzedawca
+    //.....
     // stworzenie listy obiektów typu klient
+    std::srand(std::time(nullptr));
     ClientsList cl;
     cl.make_list(number_of_clients);
     cl.print_list();
-    std::cout << "\n";
+    // std::cout << "\n";
 
     std::string text = "books.txt";
     File_operation File_b(text);
@@ -65,11 +67,11 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
     bc.make_list_from_file(M);
     bc.print_list();
 
-    std::srand(std::time(nullptr));
     int randomBook_id = 0;
-    int randomAction = 0;
-    // bool sim_step;
-    unsigned int client_id = 0, x; //, new_client_id; // first client to service
+    // int randomAction = 0;
+    unsigned int client_id = 1, x = 1; //, new_client_id; // first client to service
+
+    randomBook_id = std::rand() % number_of_books;
 
     std::cout << "\nSIMULATION STARTED\n";
     while (time < time_max) // simulation loop
@@ -77,49 +79,35 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
         std::cout << "TIME[s]: " << time;
         x = client_id;
         client_id = cl.return_first_client();
-        // new_client_id = cl.return_first_client();
-        if (x == client_id)
+        // std::cout << " x, client_id = " << x << " " << client_id << "   ";
+        //    new_client_id = cl.return_first_client();
+        if (x == client_id) // servicing the same client which is in previous loop
         {
             cl.simulation_step(client_id, bc.get_state(randomBook_id));
             // bc.change_availability(randomBook, randomAction);
-
-            std::cout << " Client nr " << client_id << " "
-                      << "wants to " << cl.activity(client_id) << /* enumToString(a.get_purpose()) <<*/ " book titled: " << bc.print_title(randomBook_id)
-                      << "and obtained response price: " << bc.calculate_book_price(randomBook_id) << "client is: "<<std::endl; // print in terminal simulation results
-
-            file << "TIME[s]: " << time << ",  Action : "
-                 << " Client <index of client> " << randomAction << " book titled: " /*<< bc.print_title(randomBook)*/ << std::endl
-                 << "u sprzedawcy numer :"; // save to file simulation result
-
-            std::this_thread::sleep_for(std::chrono::seconds(1));
-
-            client_id++;
-            time++;
         }
-        else
+        else // start servicing the new client so theres need to choose new book
         {
-            for (int i = 0; i < number_of_sellers; i++)
-            {
-                // Client a = cl.find_client_by_id(client_id);
+            // for (int i = 0; i < number_of_sellers; i++)
+            //{
+            //  Client a = cl.find_client_by_id(client_id);
 
-                randomBook_id = std::rand() % number_of_books; // choosing book
-                cl.simulation_step(client_id, bc.get_state(randomBook_id));
-                // bc.change_availability(randomBook, randomAction);
-
-                std::cout << " Client nr " << client_id << " "
-                          << "wants to " << cl.activity(client_id) << /* enumToString(a.get_purpose()) <<*/ " book titled: " << bc.print_title(randomBook_id)
-                          << "and obtained response price: " << bc.calculate_book_price(randomBook_id) << std::endl; // print in terminal simulation results
-
-                file << "TIME[s]: " << time << ",  Action : "
-                     << " Client <index of client> " << randomAction << " book titled: " /*<< bc.print_title(randomBook)*/ << std::endl
-                     << "u sprzedawcy numer :"; // save to file simulation result
-
-                std::this_thread::sleep_for(std::chrono::seconds(1));
-
-                client_id++;
-                time++;
-            }
+            randomBook_id = std::rand() % number_of_books; // choosing book
+            cl.simulation_step(client_id, bc.get_state(randomBook_id));
+            // bc.change_availability(randomBook, randomAction);
         }
+        std::cout << " Client nr " << client_id
+                  << " wants to " << cl.activity(client_id) << /* enumToString(a.get_purpose()) <<*/ " book titled: " << bc.print_title(randomBook_id)
+                  << " and obtained response price: " << bc.calculate_book_price(randomBook_id) << " client is: " << cl.get_state(client_id) << " by " << std::endl; // print in terminal simulation results
+
+        file << "TIME[s]: " << time << " Client nr " << client_id
+             << " wants to " << cl.activity(client_id) << /* enumToString(a.get_purpose()) <<*/ " book titled: " << bc.print_title(randomBook_id)
+             << " and obtained response price: " << bc.calculate_book_price(randomBook_id) << " client is: " << cl.get_state(client_id) << " by " << std::endl; // save to file simulation result
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+
+        // client_id++;
+        time++;
     }
     // std::cout << "\nEnd of simulation, books status:\n";
     // bc.print_list();

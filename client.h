@@ -7,6 +7,7 @@ enum class State
     waiting,
     servicing1,
     servicing2,
+    servicing3,
     serviced
 };
 

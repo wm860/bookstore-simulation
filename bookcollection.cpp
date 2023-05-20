@@ -132,6 +132,7 @@ void Bookcollection::change_availability(uint isbn, uint action)
 }
 std::string Bookcollection::print_title(uint isbn)
 {
+    isbn++;
     for (auto it = books.begin(); it != books.end(); ++it)
     {
         if ((*it)->get_isbn() == isbn)
