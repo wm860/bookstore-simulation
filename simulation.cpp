@@ -85,7 +85,7 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
 
             std::cout << " Client nr " << client_id << " "
                       << "wants to " << cl.activity(client_id) << /* enumToString(a.get_purpose()) <<*/ " book titled: " << bc.print_title(randomBook_id)
-                      << "and obtained response price: " << bc.calculate_book_price(randomBook_id) << std::endl; // print in terminal simulation results
+                      << "and obtained response price: " << bc.calculate_book_price(randomBook_id) << "client is: "<<std::endl; // print in terminal simulation results
 
             file << "TIME[s]: " << time << ",  Action : "
                  << " Client <index of client> " << randomAction << " book titled: " /*<< bc.print_title(randomBook)*/ << std::endl
