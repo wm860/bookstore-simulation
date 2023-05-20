@@ -22,6 +22,7 @@ public:
     void set_actual_state_list(unsigned int id);
     void simulation_step(unsigned int id, std::string availability);
     std::string activity(unsigned int id);
+    std::string get_state(unsigned int id);
 };
 
 #endif
