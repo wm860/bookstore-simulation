@@ -27,7 +27,8 @@ private:
     std::string surname;
     State state;
     Purpose purpose;
-
+    unsigned int id_of_servicing_seller = 0;
+    unsigned int id_of_book = 0;
 public:
     Client(unsigned int id, std::string name, std::string surname, Purpose purpose);
     Client();
@@ -38,12 +39,17 @@ public:
     std::string get_surname() const noexcept;
     State get_state() const noexcept;
     Purpose get_purpose() const noexcept;
+    unsigned int get_seller_id() const noexcept;
+    unsigned int get_book_id() const noexcept;
+    std::string get_activity() const noexcept;
 
     // setters
     void set_name(std::string new_name) noexcept;
     void set_surname(std::string new_surname) noexcept;
     void set_state(State new_state) noexcept;
     void set_purpose(Purpose new_purpose) noexcept;
+    void set_seller(unsigned int new_id) noexcept;
+    void set_id_of_book(unsigned int new_id) noexcept;
 
     bool operator==(const Client &second_client) const;
     bool ask(unsigned int book_id) const;
