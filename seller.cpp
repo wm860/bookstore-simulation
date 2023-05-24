@@ -1,4 +1,5 @@
 #include "seller.h"
+#include <iostream>
 
 Seller::Seller(){}
 
@@ -48,4 +49,28 @@ bool Seller::operator==(const Seller& second_seller) const
         return true;
     }
     return false;
+}
+
+void Seller::answer_question(Book book)
+{
+    std::cout << name << ' ' << surname << " with id: " << id << " Answers: " <<
+    book.get_author() << " '" << book.get_title() <<"' costs " << book.get_base_price() << " zl\n\n";
+    set_accessibility(Accessibility::accessible);
+}
+
+void Seller::bill_presentation(Book book, Purpose purpose)
+{
+    if(purpose == Purpose::buy)
+    {
+        std::cout << name << ' ' << surname << " with id: " << id << ' ' <<
+        "present the bill for buying " << book.get_author() << ": " << book.get_title() <<
+        "sum " << book.get_base_price() << " zl\n\n";
+    }
+    else
+    {
+        std::cout << name << ' ' << surname << " with id: " << id << ' ' <<
+        "present the bill for oredering " << book.get_author() << ": " << book.get_title() <<
+        "sum " << book.get_base_price() << " zl\n\n";
+    }
+    set_accessibility(Accessibility::accessible);
 }
