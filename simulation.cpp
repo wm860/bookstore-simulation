@@ -89,6 +89,7 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
 
 
     std::cout << "\nSIMULATION STARTED\n";
+    bool end = false;
     while (time < time_max) // simulation loop
     {
         std::cout << "\nTIME[s]: " << time << "\n";
@@ -98,6 +99,9 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
             std::cout << client_ptr -> get_name() << ' ' << client_ptr -> get_surname() << " with ID: "
             << client_ptr -> get_id() << ' ' << "Wants to " << client_ptr -> get_activity() << ":\n";
             std::cout << book.get_author() << ' ' << book.get_title() << "\n";
+            //file << client_ptr -> get_name() << ' ' << client_ptr -> get_surname() << " with ID: "
+            //<< client_ptr -> get_id() << ' ' << "Wants to " << client_ptr -> get_activity() << ":\n";
+            //std::cout << book.get_author() << ' ' << book.get_title() << "\n";
             client_ptr -> set_actual_state();
             if(client_ptr -> get_state() == State::serviced)
             {
@@ -110,10 +114,28 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
                 {
                     seller.bill_presentation(book, client_ptr -> get_purpose());
                 }
-                now_servicing_clients.delete_client(client_ptr -> get_id());
+                if(clients_in_queue.get_clients().empty())
+                {
+                    end = true;
+                    break;
+                }
                 std::shared_ptr<Client> new_client = clients_in_queue.get_clients().front();
                 new_client -> set_seller(seller.get_id());
+                if(new_client -> get_purpose() == Purpose::ask)
+                {
+                    new_client -> set_state(State::servicing3);
+                }
+                else if(new_client -> get_purpose() == Purpose::order)
+                {
+                    new_client -> set_state(State::servicing2);
+                }
+                else if(new_client -> get_purpose() == Purpose::buy)
+                {
+                    new_client -> set_state(State::servicing1);
+                }
                 now_servicing_clients.add_client_as_ptr(new_client);
+                now_servicing_clients.delete_client(client_ptr -> get_id());
+                clients_in_queue.delete_client(new_client -> get_id());
             }
             else std::cout << "\n";
         }
@@ -150,6 +172,11 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
            // std::this_thread::sleep_for(std::chrono::seconds(1));
             // client_id++;
         time++;
+        if(end)
+        {
+            std::cout << "All clients have been served\nEnd of simulation\n";
+            break;
+        }
     }
     // std::cout << "\nEnd of simulation, books status:\n";
     // bc.print_list();
