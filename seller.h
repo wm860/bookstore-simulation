@@ -1,76 +1,43 @@
-#include "seller.h"
-#include <iostream>
+#ifndef SELLER_H
+#define SEELER_H
+#include <string>
+#include "client.h"
+#include "book.h"
 
-Seller::Seller(){}
-
-Seller::Seller(unsigned int id, std::string name, std::string surname, Accessibility accessibility) :
-id(id), name(name), surname(surname), accessibility(accessibility)
-{}
-
-unsigned int Seller::get_id() const noexcept
+enum class Accessibility
 {
-    return id;
-}
+    accessible,
+    inaccessible
+};
 
-std::string Seller::get_name() const noexcept
+class Seller
 {
-    return name;
-}
+    private:
+        unsigned int id;
+        std::string name;
+        std::string surname;
+        Accessibility accessibility;
+        unsigned int serviced_client_id = 0;
+    public:
+        Seller(unsigned int id, std::string name, std::string surname, Accessibility Accessibility);
+        Seller();
 
-std::string Seller::get_surname() const noexcept
-{
-    return surname;
-}
+        //getters
+        unsigned int get_id() const noexcept;
+        std::string get_name()const noexcept;
+        std::string get_surname() const noexcept;
+        Accessibility get_accessibility() const noexcept;
+        unsigned int get_serviced__client_id() const;
 
-Accessibility Seller::get_accessibility() const noexcept
-{
-    return accessibility;
-}
+        //setters
+        void set_accessibility(Accessibility new_accessibility) noexcept;
+        void set_name(std::string new_name) noexcept;
+        void set_surname(std::string new_surname) noexcept;
 
-void Seller::set_name(std::string new_name) noexcept
-{
-    name = new_name;
-}
+        bool operator==(const Seller& second_seller) const;
+        void answer_question(Book book);
+        void bill_presentation(Book book, Purpose purpose);
+};
 
-void Seller::set_surname(std::string new_surname) noexcept
-{
-    surname = new_surname;
-}
 
-void Seller::set_accessibility(Accessibility new_accessibility) noexcept
-{
-    accessibility = new_accessibility;
-}
-
-bool Seller::operator==(const Seller& second_seller) const
-{
-    if(id == second_seller.get_id())
-    {
-        return true;
-    }
-    return false;
-}
-
-void Seller::answer_question(Book book)
-{
-    std::cout << name << ' ' << surname << " with id: " << id << " Answers: " <<
-    book.get_author() << " '" << book.get_title() <<"' costs " << book.get_base_price() << " zl\n\n";
-    set_accessibility(Accessibility::accessible);
-}
-
-void Seller::bill_presentation(Book book, Purpose purpose)
-{
-    if(purpose == Purpose::buy)
-    {
-        std::cout << name << ' ' << surname << " with id: " << id << ' ' <<
-        "present the bill for buying " << book.get_author() << ": " << book.get_title() <<
-        "sum " << book.get_base_price() << " zl\n\n";
-    }
-    else
-    {
-        std::cout << name << ' ' << surname << " with id: " << id << ' ' <<
-        "present the bill for oredering " << book.get_author() << ": " << book.get_title() <<
-        "sum " << book.get_base_price() << " zl\n\n";
-    }
-    set_accessibility(Accessibility::accessible);
-}
+#endif
