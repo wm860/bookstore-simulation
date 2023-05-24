@@ -48,6 +48,11 @@ void ClientsList::add_client(Client client)
     clients.push_back(std::move(added_client));
 }
 
+void ClientsList::add_client_as_ptr(std::shared_ptr<Client> client)
+{
+    clients.push_back(std::move(client));
+}
+
 std::list<std::shared_ptr<Client>> ClientsList::get_clients()
 {
     return clients;
@@ -108,18 +113,6 @@ unsigned int ClientsList::return_first_client() noexcept
         }*/
     }
     return 33;
-}
-
-Client ClientsList::find_client_by_id(unsigned int id)
-{
-    for (const auto &client_ptr : clients)
-    {
-        if (client_ptr->get_id() == id)
-        {
-            return *client_ptr;
-        }
-    }
-    throw ClientNotFoundException(id);
 }
 
 void ClientsList::set_actual_state_list(unsigned int id)
@@ -189,4 +182,73 @@ std::string ClientsList::get_state(unsigned int id)
         }
     }
     return "error in state";
+}
+
+unsigned int ClientsList::get_size() const noexcept
+{
+    return clients.size();
+}
+
+void ClientsList::delete_client(unsigned int id)
+{
+    bool exist = false;
+    for(const auto& clinet_ptr : clients)
+    {
+        if(id == clinet_ptr -> get_id())
+        {
+            exist = true;
+            clients.remove(std::move(clinet_ptr));
+            break;
+        }
+    }
+    if(exist == false)
+    {
+        throw ClientNotFoundException(id);
+    }
+}
+
+ClientsList ClientsList::pass_client_to_queue(ClientsList list_of_clients, unsigned int amount, SellersList list_of_sellers)
+{
+    unsigned int i = 1;
+    for(const auto &client_ptr : list_of_clients.get_clients())
+    {
+        if(i > amount)
+        {
+            break;
+        }
+        unsigned int new_id = client_ptr -> get_id();
+        std::string new_name = client_ptr -> get_name();
+        std::string new_surname = client_ptr -> get_surname();
+        Purpose new_purpose = client_ptr -> get_purpose();
+        Client new_client(new_id, new_name, new_surname, new_purpose);
+        unsigned int book_id = client_ptr -> get_book_id();
+        new_client.set_id_of_book(book_id);
+        new_client.set_seller(i);
+        if(new_purpose == Purpose::ask)
+        {
+            new_client.set_state(State::servicing3);
+        }
+        else if(new_purpose == Purpose::order)
+        {
+            new_client.set_state(State::servicing2);
+        }
+        else if(new_purpose == Purpose::buy)
+        {
+            new_client.set_state(State::servicing1);
+        }
+        this->add_client(new_client);
+        list_of_clients.delete_client(new_id);
+        i++;
+    }
+    i = 1;
+    for(auto &seller_ptr : list_of_sellers.get_sellers())
+    {
+        if(i > amount)
+        {
+            break;
+        }
+        seller_ptr -> set_accessibility(Accessibility::inaccessible);
+        i++;
+    }
+    return list_of_clients;
 }
