@@ -89,7 +89,6 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
 
 
     std::cout << "\nSIMULATION STARTED\n";
-    bool end = false;
     while (time < time_max) // simulation loop
     {
         std::cout << "\nTIME[s]: " << time << "\n";
@@ -116,8 +115,7 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
                 }
                 if(clients_in_queue.get_clients().empty())
                 {
-                    end = true;
-                    break;
+                    goto theEnd;
                 }
                 std::shared_ptr<Client> new_client = clients_in_queue.get_clients().front();
                 new_client -> set_seller(seller.get_id());
@@ -172,12 +170,9 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
            // std::this_thread::sleep_for(std::chrono::seconds(1));
             // client_id++;
         time++;
-        if(end)
-        {
-            std::cout << "All clients have been served\nEnd of simulation\n";
-            break;
-        }
     }
+    theEnd:
+    std::cout << "All clients have been served\nEnd of simulation\n";
     // std::cout << "\nEnd of simulation, books status:\n";
     // bc.print_list();
     file.close();
