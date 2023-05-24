@@ -32,6 +32,21 @@ Purpose Client::get_purpose() const noexcept
     return purpose;
 }
 
+unsigned int Client::get_seller_id() const noexcept
+{
+    return id_of_servicing_seller;
+}
+
+unsigned int Client::get_book_id() const noexcept
+{
+    return id_of_book;
+}
+
+std::string Client::get_activity() const noexcept
+{
+    return enumToString(purpose);
+}
+
 void Client::set_name(std::string new_name) noexcept
 {
     name = new_name;
@@ -50,6 +65,16 @@ void Client::set_state(State new_state) noexcept
 void Client::set_purpose(Purpose new_purpose) noexcept
 {
     purpose = new_purpose;
+}
+
+void Client::set_seller(unsigned int new_seller_id) noexcept
+{
+    id_of_servicing_seller = new_seller_id;
+}
+
+void Client::set_id_of_book(unsigned int new_book_id) noexcept
+{
+    id_of_book = new_book_id;
 }
 
 bool Client::operator==(const Client &second_client) const
