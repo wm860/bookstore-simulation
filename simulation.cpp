@@ -115,6 +115,7 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
                 }
                 if(clients_in_queue.get_clients().empty())
                 {
+                    std::cout << "All clients have been served\n";
                     goto theEnd;
                 }
                 std::shared_ptr<Client> new_client = clients_in_queue.get_clients().front();
@@ -172,7 +173,7 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
         time++;
     }
     theEnd:
-    std::cout << "All clients have been served\nEnd of simulation\n";
+    std::cout << "End of simulation\n";
     // std::cout << "\nEnd of simulation, books status:\n";
     // bc.print_list();
     file.close();
