@@ -11,13 +11,13 @@ Client ID: 1
 Name:Name1
 Surname:Surname1
 State:waiting
-Purpose: order
+Purpose: buy
 
 Client ID: 2
 Name:Name2
 Surname:Surname2
 State:waiting
-Purpose: ask
+Purpose: buy
 
 Client ID: 3
 Name:Name3

@@ -19,6 +19,7 @@
 #include <thread>
 #include <vector>
 #include <memory>
+#include <random>
 
 Simulation::Simulation() {}
 
@@ -75,10 +76,14 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
     collection_of_books.make_list_from_file(M);
     collection_of_books.print_list();
 
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
     int randomBook_id = 0;
     for (auto &client_ptr : list_of_clients.get_clients())
     {
-        randomBook_id = std::rand() % number_of_books + 1;
+        std::uniform_int_distribution<> dist(1, number_of_books);
+        randomBook_id = dist(gen); // std::rand() % number_of_books + 1;
         client_ptr->set_id_of_book(randomBook_id);
     }
 
@@ -101,11 +106,9 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
                       << client_ptr->get_id() << ' ' << "Wants to " << client_ptr->get_activity() << ":\n";
             std::cout << book.get_author() << ' ' << book.get_title() << "\n";
             file << client_ptr->get_name() << ' ' << client_ptr->get_surname() << " with ID: "
-                 << client_ptr->get_id() << ' ' << "Wants to " << client_ptr->get_activity() << ":\n";
-            file << book.get_author() << ' ' << book.get_title() << "\n";
-            // file << client_ptr -> get_name() << ' ' << client_ptr -> get_surname() << " with ID: "
-            //<< client_ptr -> get_id() << ' ' << "Wants to " << client_ptr -> get_activity() << ":\n";
-            // std::cout << book.get_author() << ' ' << book.get_title() << "\n";
+                 << client_ptr->get_id() << ' ' << "Wants to " << client_ptr->get_activity() << ":\n"
+                 << book.get_author() << ' ' << book.get_title() << "\n";
+
             client_ptr->set_actual_state();
             if (client_ptr->get_state() == State::serviced)
             {
@@ -113,6 +116,7 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
                 if (client_ptr->get_purpose() == Purpose::ask)
                 {
                     seller.answer_question(book);
+                    // collection_of_books.change_availability(book, randomAction);
                     file << seller.get_name() << ' ' << seller.get_surname() << " with id: " << seller.get_id() << " Answers: " << book.get_author() << " '" << book.get_title() << "' costs " << book.get_base_price() << " zl\n\n";
                 }
                 else

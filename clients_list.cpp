@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include <map>
+#include <random>
 
 std::string enumToString(Purpose purpose)
 {
@@ -75,10 +76,13 @@ void ClientsList::make_list(int n)
 {
     for (int i = 0; i < n; i++)
     {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dist(0, 2);
         unsigned int id = i + 1;
         std::string name = "Name" + std::to_string(id);
         std::string surname = "Surname" + std::to_string(id);
-        Purpose purpose = Purpose(std::rand() % 3);
+        Purpose purpose = Purpose(dist(gen));
         Client client(id, name, surname, purpose);
         add_client(client);
     }
