@@ -19,6 +19,7 @@
                 //trzeba również dołączyć pliki znajdujące się "poziom wyżej", ale bez funkcji main (dlatego nie ma tu ../*.cpp, tylko wskazany jest konkretny plik)
                 "${workspaceFolder}/../file_operation.cpp",
                 "${workspaceFolder}/../book.cpp",
+                "${workspaceFolder}/../bookcollection.cpp",
                 "${workspaceFolder}/../ebook.cpp",
                 "${workspaceFolder}/../magazine.cpp",
                 "${workspaceFolder}/../client.cpp",

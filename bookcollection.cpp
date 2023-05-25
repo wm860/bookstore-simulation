@@ -3,6 +3,7 @@
 #include "magazine.h"
 #include "ebook.h"
 #include "book_not_found_exception.h"
+#include "already_existing_ebook_exception.h"
 #include <iostream>
 
 bool Bookcollection::check_book_by_isbn(uint isbn)
@@ -62,7 +63,6 @@ void Bookcollection::add_magazine(std::string author, std::string title, uint is
 void Bookcollection::add_magazine(Magazine f)
 {
     std::unique_ptr<Magazine> added_magazine = std::make_unique<Magazine>(f.get_author(), f.get_title(), f.get_isbn(), f.get_genre(), f.get_base_price(), f.get_state(), f.get_month(), f.get_year());
-    // books.push_back(std::move(added_fiction));
     if (!check_book_by_isbn(f.get_isbn()))
         books.push_back(std::move(added_magazine));
     else
@@ -76,11 +76,13 @@ void Bookcollection::add_ebook(std::string author, std::string title, uint isbn,
 void Bookcollection::add_ebook(Ebook b)
 {
     std::unique_ptr<Ebook> added_ebook = std::make_unique<Ebook>(b.get_author(), b.get_title(), b.get_isbn(), b.get_genre(), b.get_base_price(), b.get_state(), b.get_format());
-    // books.push_back(std::move(added_bio));
     if (!check_book_by_isbn(b.get_isbn()))
         books.push_back(std::move(added_ebook));
     else
+    {
         std::cout << "You wanted add book, which is already on the shell - type bio\n";
+        throw AlreadyExistingEbookException(b.get_isbn());
+    }
 }
 
 void Bookcollection::make_list_from_file(std::vector<std::vector<std::string>> M)
@@ -91,7 +93,6 @@ void Bookcollection::make_list_from_file(std::vector<std::vector<std::string>> M
         {
             Book b(M[i][1], M[i][2], std::stoi(M[i][3]), M[i][4], std::stod(M[i][5]), M[i][6]);
             add_book(b);
-            // books.push_back(b);
         }
         if (std::stoi(M[i][0]) == 2) // add_magazine
         {

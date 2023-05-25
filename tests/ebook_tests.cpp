@@ -5,7 +5,7 @@
 #include <iostream>
 #include "../ebook.h"
 
-TEST_CASE("tests for class book", "[ebooks]")
+TEST_CASE("tests for class ebook", "[ebooks]")
 {
     Ebook b("Joanne K. Rowling", "Harry Potter and the Philosopher's Stone", 5, "novel", 202.91, "available", "pdf");
 
