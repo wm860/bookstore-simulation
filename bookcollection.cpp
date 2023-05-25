@@ -21,6 +21,11 @@ bool Bookcollection::check_book_by_isbn(uint isbn)
 
 void Bookcollection::add_book(std::string author, std::string title, uint isbn, std::string genre, double price, std::string state)
 {
+    /*bool a = check_book_by_isbn(isbn);
+    if (a == true)
+    {
+        throw AlreadyExistingEbookException(isbn);
+    }*/
     std::unique_ptr<Book> added_book = std::make_unique<Book>(author, title, isbn, genre, price, state);
     books.push_back(std::move(added_book));
 }
@@ -80,8 +85,8 @@ void Bookcollection::add_ebook(Ebook b)
         books.push_back(std::move(added_ebook));
     else
     {
-        std::cout << "You wanted add book, which is already on the shell - type bio\n";
-        throw AlreadyExistingEbookException(b.get_isbn());
+        std::cout << "You wanted add book, which is already on the shell - type ebook\n";
+        // throw AlreadyExistingEbookException(b.get_isbn());
     }
 }
 

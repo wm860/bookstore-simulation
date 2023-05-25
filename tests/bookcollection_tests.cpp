@@ -7,6 +7,8 @@
 #include "../ebook.h"
 #include "../magazine.h"
 #include "../bookcollection.h"
+#include "../already_existing_ebook_exception.h"
+#include "../book_not_found_exception.h"
 
 TEST_CASE("tests for class bookcollection", "[bookcollectiontests]")
 {
@@ -19,5 +21,19 @@ TEST_CASE("tests for class bookcollection", "[bookcollectiontests]")
     {
         bc.add_book(b);
         CHECK(bc.check_book_by_isbn(1));
+    }
+    SECTION("add ebook")
+    {
+        bc.add_book(e);
+        CHECK(bc.check_book_by_isbn(2));
+    }
+    SECTION("add magazine")
+    {
+        bc.add_book(m);
+        CHECK(bc.check_book_by_isbn(3));
+    }
+    SECTION("book not found")
+    {
+        CHECK(!bc.check_book_by_isbn(4));
     }
 }
