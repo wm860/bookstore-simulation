@@ -12,7 +12,8 @@ Do wczytywania danych z pliku utworzono odrębną klasę o nazwie file_operation
 
 To do:
  - Napisać testy do klas zaimplementowanych klas oraz testy do symulacji!!
- - Dać opóźnienie w czasie z tą symulacją - spojrzeć czy dobrze jest std::rand robione,
+ - Dać opóźnienie w czasie z tą symulacją 
+ - spojrzeć czy dobrze jest std::rand robione,
  - Zapisywać wszystkie rzeczy do pliku!
  - dodać realne imiona i nazwiska klientów, sprzedawców moze jako bazę danych?? 
  - Zrobić coś gdy książki już nie ma <-
