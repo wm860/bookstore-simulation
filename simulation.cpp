@@ -24,8 +24,10 @@ Simulation::Simulation() {}
 
 void Simulation::do_simulation(std::vector<std::string> parameters)
 {
-    std::ofstream file; // write to file
+    std::ofstream file, file_start; // write to file
+    file_start.open("simulation_start.txt", std::ios::out);
     file.open("simulation_results.txt", std::ios::out);
+    file_start << "Simulation parameters: " << std::endl;
     file << "Simulation results: " << std::endl;
 
     int time = 0;
@@ -39,35 +41,40 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
     std::cout << "Number of sellers\t\t" << number_of_sellers << std::endl;
     std::cout << "Initial number of clients\t" << number_of_clients << std::endl;
     std::cout << "Booklist file: " << name_of_booklist_file << std::endl;
+
+    file_start << "Given parameters:\n";
+    file_start << "Time of simulation\t\t" << time_max << std::endl;
+    file_start << "Number of sellers\t\t" << number_of_sellers << std::endl;
+    file_start << "Initial number of clients\t" << number_of_clients << std::endl;
+    file_start << "Booklist file: " << name_of_booklist_file << std::endl;
+
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
-    // stworzenie listy obiektów typu sprzedawca
     std::srand(std::time(nullptr));
-    SellersList list_of_sellers;
+
+    SellersList list_of_sellers; // made seller list
     list_of_sellers.make_list(number_of_sellers);
     list_of_sellers.print_list();
-    // stworzenie listy obiektów typu klient
-    ClientsList list_of_clients;
+    // list_of_sellers.print_list_to_file(std::move(file_start));
+
+    ClientsList list_of_clients; // made client list
     list_of_clients.make_list(number_of_clients);
     list_of_clients.print_list();
-    // std::cout << "\n";
 
-    // std::string text = "books.txt";
     File_operation File_b(name_of_booklist_file);
     std::vector<std::vector<std::string>> M = File_b.open_book_file(name_of_booklist_file);
-    // File_b.print_book_file(M);
     int number_of_books = (int)M.size();
     std::cout << "Initial number of books\t\t" << number_of_books << std::endl
               << std::endl
               << "List of books:\n";
+    file_start << "Initial number of books\t\t" << number_of_books
+               << std::endl;
+    list_of_clients.print_list_to_file(std::move(file_start));
 
     Bookcollection collection_of_books; // initialize book collection
     collection_of_books.make_list_from_file(M);
     collection_of_books.print_list();
 
-    // int randomAction = 0;
-    // unsigned int client_id = 1, x = 1; //, new_client_id; // first client to service
-    // random book for all clients
     int randomBook_id = 0;
     for (auto &client_ptr : list_of_clients.get_clients())
     {
@@ -85,13 +92,17 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
     std::cout << "\nSIMULATION STARTED\n";
     while (time < time_max) // simulation loop
     {
-        std::cout << "\nTIME[s]: " << time << "\n";
+        std::cout << "TIME[s]: " << time << "\n";
+        file << "\nTIME[s]: " << time << "\n";
         for (auto &client_ptr : now_servicing_clients.get_clients())
         {
             Book book = collection_of_books.find_book_by_isbn(client_ptr->get_book_id());
             std::cout << client_ptr->get_name() << ' ' << client_ptr->get_surname() << " with ID: "
                       << client_ptr->get_id() << ' ' << "Wants to " << client_ptr->get_activity() << ":\n";
             std::cout << book.get_author() << ' ' << book.get_title() << "\n";
+            file << client_ptr->get_name() << ' ' << client_ptr->get_surname() << " with ID: "
+                 << client_ptr->get_id() << ' ' << "Wants to " << client_ptr->get_activity() << ":\n";
+            file << book.get_author() << ' ' << book.get_title() << "\n";
             // file << client_ptr -> get_name() << ' ' << client_ptr -> get_surname() << " with ID: "
             //<< client_ptr -> get_id() << ' ' << "Wants to " << client_ptr -> get_activity() << ":\n";
             // std::cout << book.get_author() << ' ' << book.get_title() << "\n";
@@ -102,10 +113,12 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
                 if (client_ptr->get_purpose() == Purpose::ask)
                 {
                     seller.answer_question(book);
+                    file << seller.get_name() << ' ' << seller.get_surname() << " with id: " << seller.get_id() << " Answers: " << book.get_author() << " '" << book.get_title() << "' costs " << book.get_base_price() << " zl\n\n";
                 }
                 else
                 {
                     seller.bill_presentation(book, client_ptr->get_purpose());
+                    file << seller.get_name() << ' ' << seller.get_surname() << " with id: " << seller.get_id() << ' ' << "present the bill for buying " << book.get_author() << ": " << book.get_title() << "sum " << book.get_base_price() << " zl\n\n";
                 }
                 if (clients_in_queue.get_clients().empty())
                 {
@@ -131,8 +144,12 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
                 clients_in_queue.delete_client(new_client->get_id());
             }
             else
+            {
                 std::cout << "\n";
+                file << "\n";
+            }
         }
+        std::this_thread::sleep_for(std::chrono::seconds(5));
         /*
         x = client_id;
         client_id = list_of_clients.return_first_client();
@@ -155,21 +172,13 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
         }
         */
 
-        // std::cout << " Client nr " << client_id
-        //         << " wants to " << list_of_clients.activity(client_id) << /* enumToString(a.get_purpose()) <<*/ " book titled: " << collection_of_books.print_title(randomBook_id)
-        //        << " and obtained response price: " << collection_of_books.calculate_book_price(randomBook_id) << " client is: " << list_of_clients.get_state(client_id) << " by " << std::endl; // print in terminal simulation results
-
-        // file << "TIME[s]: " << time << " Client nr " << client_id
-        //     << " wants to " << list_of_clients.activity(client_id) << /* enumToString(a.get_purpose()) <<*/ " book titled: " << collection_of_books.print_title(randomBook_id)
-        //    << " and obtained response price: " << collection_of_books.calculate_book_price(randomBook_id) << " client is: " << list_of_clients.get_state(client_id) << " by " << std::endl; // save to file simulation result
-
-        // std::this_thread::sleep_for(std::chrono::seconds(1));
-        // client_id++;
         time++;
     }
 theEnd:
     std::cout << "End of simulation\n";
+    file << "End of simulation\n";
     // std::cout << "\nEnd of simulation, books status:\n";
     // bc.print_list();
+    file_start.close();
     file.close();
 }

@@ -18,6 +18,7 @@ public:
     Client find_client_by_id(unsigned int id) const;
     void make_list(int number_of_clients);
     void print_list() noexcept;
+    void print_list_to_file(std::ofstream f) noexcept;
     unsigned int return_first_client() noexcept;
     void delete_client(unsigned int id);
     ClientsList pass_client_to_queue(ClientsList first, unsigned int amount, SellersList list_of_sellers);
