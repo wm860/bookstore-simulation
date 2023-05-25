@@ -5,6 +5,7 @@
 #include "book_not_found_exception.h"
 #include "already_existing_ebook_exception.h"
 #include <iostream>
+#include <fstream>
 
 bool Bookcollection::check_book_by_isbn(uint isbn)
 {
@@ -124,16 +125,21 @@ void Bookcollection::change_availability(uint isbn, uint action)
             }
             if (action == 1)
             {
+                (*it)->set_state("ordered");
+            }
+            if (action == 2)
+            {
                 (*it)->set_state("bought");
             }
         }
+        /*
         if ((*it)->get_isbn() == isbn && (*it)->get_state() == "asked for")
         {
             if (action == 1)
             {
                 (*it)->set_state("bought");
             }
-        }
+        }*/
     }
 }
 std::string Bookcollection::print_title(uint isbn)
@@ -214,4 +220,11 @@ double Bookcollection::calculate_book_price(uint isbn) const noexcept
         }
     }
     return 0.0;
+}
+void Bookcollection::print_list_to_file(std::ostream *f) noexcept
+{
+    for (const auto &book_ptr : books)
+    {
+        *f << book_ptr->get_state() << "\t" << book_ptr->get_title() << "\n";
+    }
 }

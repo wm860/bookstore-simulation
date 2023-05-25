@@ -12,9 +12,8 @@ Do wczytywania danych z pliku utworzono odrębną klasę o nazwie file_operation
 
 To do:
  - dodać realne imiona i nazwiska klientów, sprzedawców moze jako bazę danych?? 
- - Zrobić coś gdy książki już nie ma <-
- - zmieniać stan ksiażek gdy klient zrobi jakąś akcję
+ - Zrobić coś, gdy książki już nie ma <-
  - Sporządzić dokumentację końcową,
- - dopisać ewentualnie jakieś testy,
+ - dopisać ewentualnie dodatkowe testy,
 
  

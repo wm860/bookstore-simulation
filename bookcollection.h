@@ -33,6 +33,7 @@ public:
 
     std::string get_state(uint isbn);
     double calculate_book_price(uint isbn) const noexcept;
+    void print_list_to_file(std::ostream *f) noexcept;
 };
 
 #endif

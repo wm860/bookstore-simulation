@@ -116,11 +116,20 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
                 if (client_ptr->get_purpose() == Purpose::ask)
                 {
                     seller.answer_question(book);
-                    // collection_of_books.change_availability(book, randomAction);
+                    collection_of_books.change_availability(book.get_isbn(), 0);
                     file << seller.get_name() << ' ' << seller.get_surname() << " with id: " << seller.get_id() << " Answers: " << book.get_author() << " '" << book.get_title() << "' costs " << book.get_base_price() << " zl\n\n";
                 }
                 else
                 {
+                    if (client_ptr->get_purpose() == Purpose::buy)
+                    {
+                        collection_of_books.change_availability(book.get_isbn(), 2);
+                    }
+                    if (client_ptr->get_purpose() == Purpose::order)
+                    {
+                        collection_of_books.change_availability(book.get_isbn(), 1);
+                    }
+
                     seller.bill_presentation(book, client_ptr->get_purpose());
                     file << seller.get_name() << ' ' << seller.get_surname() << " with id: " << seller.get_id() << ' ' << "present the bill for buying " << book.get_author() << ": " << book.get_title() << "sum " << book.get_base_price() << " zl\n\n";
                 }
@@ -154,35 +163,14 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
             }
         }
         std::this_thread::sleep_for(std::chrono::seconds(5));
-        /*
-        x = client_id;
-        client_id = list_of_clients.return_first_client();
-        // std::cout << " x, client_id = " << x << " " << client_id << "   ";
-        //    new_client_id = cl.return_first_client();
-        if (x == client_id) // servicing the same client which is in previous loop
-        {
-            list_of_clients.simulation_step(client_id, collection_of_books.get_state(randomBook_id));
-            // bc.change_availability(randomBook, randomAction);
-        }
-        else // start servicing the new client so theres need to choose new book
-        {
-            // for (int i = 0; i < number_of_sellers; i++)
-            //{
-            //  Client a = cl.find_client_by_id(client_id);
-
-            randomBook_id = std::rand() % number_of_books; // choosing book
-            list_of_clients.simulation_step(client_id, collection_of_books.get_state(randomBook_id));
-            // bc.change_availability(randomBook, randomAction);
-        }
-        */
-
         time++;
     }
 theEnd:
     std::cout << "End of simulation\n";
     file << "End of simulation\n";
-    // std::cout << "\nEnd of simulation, books status:\n";
-    // bc.print_list();
+    std::cout << "\nEnd of simulation, books status:\n";
+    collection_of_books.print_list();
+    collection_of_books.print_list_to_file(&file);
     file_start.close();
     file.close();
 }
