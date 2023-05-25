@@ -11,13 +11,11 @@ Lista książek (baza danych) wczytywana z pliku books_data_base.txt. Będą to 
 Do wczytywania danych z pliku utworzono odrębną klasę o nazwie file_operation. W niej znajdują się następujące metody:
 
 To do:
- - Na końcu projektu nazwy ścieżki plików dodać jako argumenty wczytywania programu - dodać kolejny argument!
- - Sporządzić dokumentację końcową,
  - Napisać testy do klas zaimplementowanych klas oraz testy do symulacji!!
  - Dać opóźnienie w czasie z tą symulacją - spojrzeć czy dobrze jest std::rand robione,
  - Zapisywać wszystkie rzeczy do pliku!
- - zmienić ceny książek,
  - dodać realne imiona i nazwiska klientów, sprzedawców moze jako bazę danych?? 
  - Zrobić coś gdy książki już nie ma <-
+ - Sporządzić dokumentację końcową,
 
  

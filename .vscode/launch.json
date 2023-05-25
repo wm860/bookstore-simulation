@@ -12,7 +12,8 @@
             "args": [
                 "16",
                 "1",
-                "5"
+                "5",
+                "books.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
