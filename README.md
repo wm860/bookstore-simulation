@@ -10,7 +10,7 @@ Do wczytywania danych z pliku utworzono odrębną klasę o nazwie file_operation
 
 To do:
  - dodać realne imiona i nazwiska klientów, sprzedawców moze jako bazę danych?? 
- - Sporządzić dokumentację końcową,
+ - Dokończyć dokumentację końcową,
  - dopisać ewentualnie dodatkowe testy,
 
  
