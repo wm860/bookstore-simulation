@@ -94,6 +94,8 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
     ClientsList clients_in_queue;
     clients_in_queue = now_servicing_clients.pass_client_to_queue(list_of_clients, number_of_now_servicing_clients, list_of_sellers);
 
+    double daily_income = 0;
+    int w = 0;
     std::cout << "\nSIMULATION STARTED\n";
     while (time < time_max) // simulation loop
     {
@@ -108,7 +110,11 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
             file << client_ptr->get_name() << ' ' << client_ptr->get_surname() << " with ID: "
                  << client_ptr->get_id() << ' ' << "Wants to " << client_ptr->get_activity() << ":\n"
                  << book.get_author() << ' ' << book.get_title() << "\n";
-
+            if (w == 1)
+            {
+                daily_income += book.calculate_price();
+                w = 0;
+            }
             client_ptr->set_actual_state();
             if (client_ptr->get_state() == State::serviced)
             {
@@ -151,6 +157,7 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
                 else if (new_client->get_purpose() == Purpose::buy)
                 {
                     new_client->set_state(State::servicing1);
+                    w = 1;
                 }
                 now_servicing_clients.add_client_as_ptr(new_client);
                 now_servicing_clients.delete_client(client_ptr->get_id());
@@ -162,7 +169,7 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
                 file << "\n";
             }
         }
-        std::this_thread::sleep_for(std::chrono::seconds(5));
+        // std::this_thread::sleep_for(std::chrono::seconds(5));
         time++;
     }
 theEnd:
@@ -171,6 +178,9 @@ theEnd:
     std::cout << "\nEnd of simulation, books status:\n";
     collection_of_books.print_list();
     collection_of_books.print_list_to_file(&file);
+    std::cout << "\nDaily income:\n"
+              << daily_income;
+    file << daily_income;
     file_start.close();
     file.close();
 }
