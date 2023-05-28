@@ -104,11 +104,9 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
         for (auto &client_ptr : now_servicing_clients.get_clients())
         {
             Book book = collection_of_books.find_book_by_isbn(client_ptr->get_book_id());
-            std::cout << client_ptr->get_name() << ' ' << client_ptr->get_surname() << " with ID: "
-                      << client_ptr->get_id() << ' ' << "Wants to " << client_ptr->get_activity() << ":\n";
+            std::cout << "Client no " <<  client_ptr->get_id() << " wants to " << client_ptr->get_activity() << ":\n";
             std::cout << book.get_author() << ' ' << book.get_title() << "\n";
-            file << client_ptr->get_name() << ' ' << client_ptr->get_surname() << " with ID: "
-                 << client_ptr->get_id() << ' ' << "Wants to " << client_ptr->get_activity() << ":\n"
+            file << "Client no " <<  client_ptr->get_id() << " wants to " << client_ptr->get_activity() << ":\n"
                  << book.get_author() << ' ' << book.get_title() << "\n";
             if (w == 1)
             {
@@ -123,7 +121,7 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
                 {
                     seller.answer_question(book);
                     collection_of_books.change_availability(book.get_isbn(), 0);
-                    file << seller.get_name() << ' ' << seller.get_surname() << " with id: " << seller.get_id() << " Answers: " << book.get_author() << " '" << book.get_title() << "' costs " << book.get_base_price() << " zl\n\n";
+                    file << "Seller no " << seller.get_id() << " answers: " << book.get_author() << " '" << book.get_title() << "' costs " << book.get_base_price() << " zl\n\n";
                 }
                 else
                 {
@@ -137,7 +135,7 @@ void Simulation::do_simulation(std::vector<std::string> parameters)
                     }
 
                     seller.bill_presentation(book, client_ptr->get_purpose());
-                    file << seller.get_name() << ' ' << seller.get_surname() << " with id: " << seller.get_id() << ' ' << "present the bill for buying " << book.get_author() << ": " << book.get_title() << "sum " << book.get_base_price() << " zl\n\n";
+                    file << "Seller no " << seller.get_id() << " present the bill for buying " << book.get_author() << ": " << book.get_title() << "sum " << book.get_base_price() << " zl\n\n";
                 }
                 if (clients_in_queue.get_clients().empty())
                 {
