@@ -2,8 +2,10 @@
 #include "client_not_found_exception.h"
 #include "already_existing_client_exception.h"
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <map>
+#include <random>
 
 std::string enumToString(Purpose purpose)
 {
@@ -74,10 +76,13 @@ void ClientsList::make_list(int n)
 {
     for (int i = 0; i < n; i++)
     {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dist(0, 2);
         unsigned int id = i + 1;
-        std::string name = "Client" + std::to_string(id);
+        std::string name = "Name" + std::to_string(id);
         std::string surname = "Surname" + std::to_string(id);
-        Purpose purpose = Purpose(std::rand() % 3);
+        Purpose purpose = Purpose(dist(gen));
         Client client(id, name, surname, purpose);
         add_client(client);
     }
@@ -192,16 +197,16 @@ unsigned int ClientsList::get_size() const noexcept
 void ClientsList::delete_client(unsigned int id)
 {
     bool exist = false;
-    for(const auto& clinet_ptr : clients)
+    for (const auto &clinet_ptr : clients)
     {
-        if(id == clinet_ptr -> get_id())
+        if (id == clinet_ptr->get_id())
         {
             exist = true;
             clients.remove(std::move(clinet_ptr));
             break;
         }
     }
-    if(exist == false)
+    if (exist == false)
     {
         throw ClientNotFoundException(id);
     }
@@ -210,29 +215,29 @@ void ClientsList::delete_client(unsigned int id)
 ClientsList ClientsList::pass_client_to_queue(ClientsList list_of_clients, unsigned int amount, SellersList list_of_sellers)
 {
     unsigned int i = 1;
-    for(const auto &client_ptr : list_of_clients.get_clients())
+    for (const auto &client_ptr : list_of_clients.get_clients())
     {
-        if(i > amount)
+        if (i > amount)
         {
             break;
         }
-        unsigned int new_id = client_ptr -> get_id();
-        std::string new_name = client_ptr -> get_name();
-        std::string new_surname = client_ptr -> get_surname();
-        Purpose new_purpose = client_ptr -> get_purpose();
+        unsigned int new_id = client_ptr->get_id();
+        std::string new_name = client_ptr->get_name();
+        std::string new_surname = client_ptr->get_surname();
+        Purpose new_purpose = client_ptr->get_purpose();
         Client new_client(new_id, new_name, new_surname, new_purpose);
-        unsigned int book_id = client_ptr -> get_book_id();
+        unsigned int book_id = client_ptr->get_book_id();
         new_client.set_id_of_book(book_id);
-        new_client.set_seller_id(i);
-        if(new_purpose == Purpose::ask)
+        new_client.set_seller(i);
+        if (new_purpose == Purpose::ask)
         {
             new_client.set_state(State::servicing3);
         }
-        else if(new_purpose == Purpose::order)
+        else if (new_purpose == Purpose::order)
         {
             new_client.set_state(State::servicing2);
         }
-        else if(new_purpose == Purpose::buy)
+        else if (new_purpose == Purpose::buy)
         {
             new_client.set_state(State::servicing1);
         }
@@ -241,14 +246,27 @@ ClientsList ClientsList::pass_client_to_queue(ClientsList list_of_clients, unsig
         i++;
     }
     i = 1;
-    for(auto &seller_ptr : list_of_sellers.get_sellers())
+    for (auto &seller_ptr : list_of_sellers.get_sellers())
     {
-        if(i > amount)
+        if (i > amount)
         {
             break;
         }
-        seller_ptr -> set_accessibility(Accessibility::inaccessible);
+        seller_ptr->set_accessibility(Accessibility::inaccessible);
         i++;
     }
     return list_of_clients;
+}
+void ClientsList::print_list_to_file(std::ofstream f) noexcept
+{
+    f << "\nClients list:\n";
+    for (const auto &client_ptr : clients)
+    {
+        f << "Client ID: " << client_ptr->get_id() << "\n";
+        f << "Name:" << client_ptr->get_name() << "\n";
+        f << "Surname:" << client_ptr->get_surname() << "\n";
+        f << "State:" << enumToString(client_ptr->get_state()) << "\n";
+        f << "Purpose: " << enumToString(client_ptr->get_purpose())
+          << "\n\n";
+    }
 }
