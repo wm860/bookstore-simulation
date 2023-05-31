@@ -1,8 +1,8 @@
 Simulation parameters: 
 Given parameters:
-Time of simulation		17
-Number of sellers		1
-Initial number of clients	5
+Time of simulation		30
+Number of sellers		5
+Initial number of clients	50
 Booklist file: books.txt
 Initial number of books		20
 
@@ -17,23 +17,293 @@ Client ID: 2
 Name:Name2
 Surname:Surname2
 State:waiting
-Purpose: ask
+Purpose: order
 
 Client ID: 3
 Name:Name3
 Surname:Surname3
 State:waiting
-Purpose: ask
+Purpose: order
 
 Client ID: 4
 Name:Name4
 Surname:Surname4
 State:waiting
-Purpose: order
+Purpose: buy
 
 Client ID: 5
 Name:Name5
 Surname:Surname5
 State:waiting
+Purpose: ask
+
+Client ID: 6
+Name:Name6
+Surname:Surname6
+State:waiting
 Purpose: buy
+
+Client ID: 7
+Name:Name7
+Surname:Surname7
+State:waiting
+Purpose: buy
+
+Client ID: 8
+Name:Name8
+Surname:Surname8
+State:waiting
+Purpose: order
+
+Client ID: 9
+Name:Name9
+Surname:Surname9
+State:waiting
+Purpose: ask
+
+Client ID: 10
+Name:Name10
+Surname:Surname10
+State:waiting
+Purpose: ask
+
+Client ID: 11
+Name:Name11
+Surname:Surname11
+State:waiting
+Purpose: order
+
+Client ID: 12
+Name:Name12
+Surname:Surname12
+State:waiting
+Purpose: ask
+
+Client ID: 13
+Name:Name13
+Surname:Surname13
+State:waiting
+Purpose: buy
+
+Client ID: 14
+Name:Name14
+Surname:Surname14
+State:waiting
+Purpose: order
+
+Client ID: 15
+Name:Name15
+Surname:Surname15
+State:waiting
+Purpose: order
+
+Client ID: 16
+Name:Name16
+Surname:Surname16
+State:waiting
+Purpose: order
+
+Client ID: 17
+Name:Name17
+Surname:Surname17
+State:waiting
+Purpose: order
+
+Client ID: 18
+Name:Name18
+Surname:Surname18
+State:waiting
+Purpose: order
+
+Client ID: 19
+Name:Name19
+Surname:Surname19
+State:waiting
+Purpose: order
+
+Client ID: 20
+Name:Name20
+Surname:Surname20
+State:waiting
+Purpose: ask
+
+Client ID: 21
+Name:Name21
+Surname:Surname21
+State:waiting
+Purpose: order
+
+Client ID: 22
+Name:Name22
+Surname:Surname22
+State:waiting
+Purpose: ask
+
+Client ID: 23
+Name:Name23
+Surname:Surname23
+State:waiting
+Purpose: order
+
+Client ID: 24
+Name:Name24
+Surname:Surname24
+State:waiting
+Purpose: order
+
+Client ID: 25
+Name:Name25
+Surname:Surname25
+State:waiting
+Purpose: buy
+
+Client ID: 26
+Name:Name26
+Surname:Surname26
+State:waiting
+Purpose: order
+
+Client ID: 27
+Name:Name27
+Surname:Surname27
+State:waiting
+Purpose: buy
+
+Client ID: 28
+Name:Name28
+Surname:Surname28
+State:waiting
+Purpose: ask
+
+Client ID: 29
+Name:Name29
+Surname:Surname29
+State:waiting
+Purpose: ask
+
+Client ID: 30
+Name:Name30
+Surname:Surname30
+State:waiting
+Purpose: order
+
+Client ID: 31
+Name:Name31
+Surname:Surname31
+State:waiting
+Purpose: order
+
+Client ID: 32
+Name:Name32
+Surname:Surname32
+State:waiting
+Purpose: buy
+
+Client ID: 33
+Name:Name33
+Surname:Surname33
+State:waiting
+Purpose: order
+
+Client ID: 34
+Name:Name34
+Surname:Surname34
+State:waiting
+Purpose: order
+
+Client ID: 35
+Name:Name35
+Surname:Surname35
+State:waiting
+Purpose: ask
+
+Client ID: 36
+Name:Name36
+Surname:Surname36
+State:waiting
+Purpose: buy
+
+Client ID: 37
+Name:Name37
+Surname:Surname37
+State:waiting
+Purpose: order
+
+Client ID: 38
+Name:Name38
+Surname:Surname38
+State:waiting
+Purpose: buy
+
+Client ID: 39
+Name:Name39
+Surname:Surname39
+State:waiting
+Purpose: buy
+
+Client ID: 40
+Name:Name40
+Surname:Surname40
+State:waiting
+Purpose: buy
+
+Client ID: 41
+Name:Name41
+Surname:Surname41
+State:waiting
+Purpose: buy
+
+Client ID: 42
+Name:Name42
+Surname:Surname42
+State:waiting
+Purpose: ask
+
+Client ID: 43
+Name:Name43
+Surname:Surname43
+State:waiting
+Purpose: order
+
+Client ID: 44
+Name:Name44
+Surname:Surname44
+State:waiting
+Purpose: order
+
+Client ID: 45
+Name:Name45
+Surname:Surname45
+State:waiting
+Purpose: ask
+
+Client ID: 46
+Name:Name46
+Surname:Surname46
+State:waiting
+Purpose: ask
+
+Client ID: 47
+Name:Name47
+Surname:Surname47
+State:waiting
+Purpose: order
+
+Client ID: 48
+Name:Name48
+Surname:Surname48
+State:waiting
+Purpose: ask
+
+Client ID: 49
+Name:Name49
+Surname:Surname49
+State:waiting
+Purpose: order
+
+Client ID: 50
+Name:Name50
+Surname:Surname50
+State:waiting
+Purpose: ask
 
